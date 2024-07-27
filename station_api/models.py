@@ -61,7 +61,7 @@ class Journey(models.Model):
     arrival_time = models.DateTimeField()
 
     def __str__(self):
-        return f"Route: {self.route} on {self.train}"
+        return f"{self.route} on {self.train}"
 
 
 class Order(models.Model):
@@ -69,7 +69,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Order from {self.created_at} by {self.user}"
+        return f"Order at {self.created_at} by {self.user}"
 
 
 class Ticket(models.Model):
