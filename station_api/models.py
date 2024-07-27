@@ -1,4 +1,5 @@
 from django.db import models
+from geopy.distance import geodesic
 
 from user.models import User
 
@@ -23,7 +24,14 @@ class Station(models.Model):
 class Route(models.Model):
     source = models.ForeignKey(Station, on_delete=models.CASCADE, related_name='route_source')
     destination = models.ForeignKey(Station, on_delete=models.CASCADE, related_name='route_destination')
-    distance = models.IntegerField()
+
+    @property
+    def distance(self):
+        if self.source and self.destination:
+            source_coords = (self.source.latitude, self.source.longitude)
+            destination_coords = (self.destination.latitude, self.destination.longitude)
+            return geodesic(source_coords, destination_coords).kilometers
+        return None
 
     def __str__(self):
         return f"From {self.source} to {self.destination}"
