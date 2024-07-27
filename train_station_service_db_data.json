@@ -55,8 +55,7 @@
         "pk": 1,
         "fields": {
             "source": 1,
-            "destination": 2,
-            "distance": 10
+            "destination": 2
         }
     },
     {
@@ -64,8 +63,7 @@
         "pk": 2,
         "fields": {
             "source": 2,
-            "destination": 3,
-            "distance": 15
+            "destination": 3
         }
     },
     {
@@ -73,8 +71,7 @@
         "pk": 3,
         "fields": {
             "source": 1,
-            "destination": 3,
-            "distance": 20
+            "destination": 3
         }
     },
     {
