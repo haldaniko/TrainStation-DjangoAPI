@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from user.serializers import UserSerializer
 from .models import (
     Crew,
     Station,
@@ -80,6 +82,21 @@ class TrainDetailSerializer(serializers.ModelSerializer):
 
 
 class JourneySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Journey
+        fields = ('id', 'route', 'train', 'departure_time', 'arrival_time')
+
+
+class JourneyListSerializer(serializers.ModelSerializer):
+    route = serializers.StringRelatedField()
+    train = serializers.StringRelatedField()
+
+    class Meta:
+        model = Journey
+        fields = ('id', 'route', 'train', 'departure_time', 'arrival_time')
+
+
+class JourneyDetailSerializer(serializers.ModelSerializer):
     route = RouteSerializer()
     train = TrainSerializer()
 
@@ -89,7 +106,13 @@ class JourneySerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()  # Or use a nested serializer if needed
+    class Meta:
+        model = Order
+        fields = ('id', 'created_at', 'user')
+
+
+class OrderListSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
 
     class Meta:
         model = Order
@@ -103,3 +126,12 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = ('id', 'cargo', 'seat', 'journey', 'order')
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    tickets = TicketSerializer(many=True, read_only=True, source='ticket_set')
+    user = UserSerializer()
+
+    class Meta:
+        model = Order
+        fields = ('id', 'created_at', 'user', 'tickets')
