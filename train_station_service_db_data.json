@@ -1,0 +1,245 @@
+[
+    {
+        "model": "station_api.crew",
+        "pk": 1,
+        "fields": {
+            "first_name": "John",
+            "last_name": "Doe"
+        }
+    },
+    {
+        "model": "station_api.crew",
+        "pk": 2,
+        "fields": {
+            "first_name": "Jane",
+            "last_name": "Smith"
+        }
+    },
+    {
+        "model": "station_api.crew",
+        "pk": 3,
+        "fields": {
+            "first_name": "Emily",
+            "last_name": "Jones"
+        }
+    },
+    {
+        "model": "station_api.station",
+        "pk": 1,
+        "fields": {
+            "name": "Central Station",
+            "latitude": 40.7128,
+            "longitude": -74.0060
+        }
+    },
+    {
+        "model": "station_api.station",
+        "pk": 2,
+        "fields": {
+            "name": "North Station",
+            "latitude": 40.7306,
+            "longitude": -73.9352
+        }
+    },
+    {
+        "model": "station_api.station",
+        "pk": 3,
+        "fields": {
+            "name": "South Station",
+            "latitude": 40.7510,
+            "longitude": -73.9810
+        }
+    },
+    {
+        "model": "station_api.route",
+        "pk": 1,
+        "fields": {
+            "source": 1,
+            "destination": 2,
+            "distance": 10
+        }
+    },
+    {
+        "model": "station_api.route",
+        "pk": 2,
+        "fields": {
+            "source": 2,
+            "destination": 3,
+            "distance": 15
+        }
+    },
+    {
+        "model": "station_api.route",
+        "pk": 3,
+        "fields": {
+            "source": 1,
+            "destination": 3,
+            "distance": 20
+        }
+    },
+    {
+        "model": "station_api.TrainType",
+        "pk": 1,
+        "fields": {
+            "name": "Passenger"
+        }
+    },
+    {
+        "model": "station_api.TrainType",
+        "pk": 2,
+        "fields": {
+            "name": "Freight"
+        }
+    },
+    {
+        "model": "station_api.TrainType",
+        "pk": 3,
+        "fields": {
+            "name": "High-Speed"
+        }
+    },
+    {
+        "model": "station_api.train",
+        "pk": 1,
+        "fields": {
+            "name": "Train A",
+            "cargo_num": 100,
+            "places_in_cargo": 50,
+            "train_type": 1
+        }
+    },
+    {
+        "model": "station_api.train",
+        "pk": 2,
+        "fields": {
+            "name": "Train B",
+            "cargo_num": 200,
+            "places_in_cargo": 75,
+            "train_type": 2
+        }
+    },
+    {
+        "model": "station_api.train",
+        "pk": 3,
+        "fields": {
+            "name": "Train C",
+            "cargo_num": 150,
+            "places_in_cargo": 60,
+            "train_type": 3
+        }
+    },
+    {
+        "model": "station_api.journey",
+        "pk": 1,
+        "fields": {
+            "route": 1,
+            "train": 1,
+            "departure_time": "2024-07-27T08:00:00Z",
+            "arrival_time": "2024-07-27T10:00:00Z"
+        }
+    },
+    {
+        "model": "station_api.journey",
+        "pk": 2,
+        "fields": {
+            "route": 2,
+            "train": 2,
+            "departure_time": "2024-07-27T11:00:00Z",
+            "arrival_time": "2024-07-27T13:00:00Z"
+        }
+    },
+    {
+        "model": "station_api.journey",
+        "pk": 3,
+        "fields": {
+            "route": 3,
+            "train": 3,
+            "departure_time": "2024-07-27T14:00:00Z",
+            "arrival_time": "2024-07-27T16:00:00Z"
+        }
+    },
+    {
+        "model": "station_api.order",
+        "pk": 1,
+        "fields": {
+            "created_at": "2024-07-27T09:00:00Z",
+            "user": 1
+        }
+    },
+    {
+        "model": "station_api.order",
+        "pk": 2,
+        "fields": {
+            "created_at": "2024-07-27T09:30:00Z",
+            "user": 2
+        }
+    },
+    {
+        "model": "station_api.order",
+        "pk": 3,
+        "fields": {
+            "created_at": "2024-07-27T10:00:00Z",
+            "user": 3
+        }
+    },
+    {
+        "model": "station_api.ticket",
+        "pk": 1,
+        "fields": {
+            "cargo": 10,
+            "seat": 1,
+            "journey": 1,
+            "order": 1
+        }
+    },
+    {
+        "model": "station_api.ticket",
+        "pk": 2,
+        "fields": {
+            "cargo": 20,
+            "seat": 2,
+            "journey": 2,
+            "order": 2
+        }
+    },
+    {
+        "model": "station_api.ticket",
+        "pk": 3,
+        "fields": {
+            "cargo": 30,
+            "seat": 3,
+            "journey": 3,
+            "order": 3
+        }
+    },
+    {
+        "model": "user.user",
+        "pk": 1,
+        "fields": {
+            "email": "user1@example.com",
+            "password": "password123",
+            "is_staff": false,
+            "is_superuser": false
+        }
+    },
+    {
+        "model": "user.user",
+        "pk": 2,
+        "fields": {
+            "email": "user2@example.com",
+            "password": "password123",
+            "is_staff": false,
+            "is_superuser": false
+        }
+    },
+    {
+        "model": "user.user",
+        "pk": 3,
+        "fields": {
+            "email": "user3@example.com",
+            "password": "password123",
+            "is_staff": false,
+            "is_superuser": false
+        }
+    }
+]
