@@ -18,6 +18,7 @@ Django API project for managing trains, crew, routes, stations, tickets, orders,
     pip install -r requirements.txt
     
     python manage.py migrate
+    python manage.py loaddata train_station_service_db_data.json
     python manage.py createsuperuser
     python manage.py runserver
    
