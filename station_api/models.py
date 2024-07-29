@@ -1,6 +1,7 @@
 import os
 import uuid
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 from geopy.distance import geodesic
@@ -87,8 +88,38 @@ class Order(models.Model):
 class Ticket(models.Model):
     cargo = models.IntegerField()
     seat = models.IntegerField()
-    journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    journey = models.ForeignKey('Journey', on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+
+    @staticmethod
+    def validate_ticket(seat, journey, error_to_raise):
+        if Ticket.objects.filter(seat=seat, journey=journey).exists():
+            raise error_to_raise({
+                'seat': f'The seat is alredy taken'
+            })
+
+    def clean(self):
+        Ticket.validate_ticket(
+            self.seat,
+            self.journey,
+            ValidationError,
+        )
+
+    def save(
+        self,
+        force_insert=False,
+        force_update=False,
+        using=None,
+        update_fields=None,
+    ):
+        self.full_clean()
+        return super(Ticket, self).save(
+            force_insert, force_update, using, update_fields
+        )
 
     def __str__(self):
         return f"Seat {self.seat}, {self.journey}"
+
+    class Meta:
+        unique_together = ("journey", "seat")
+        ordering = ["seat"]
