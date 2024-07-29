@@ -47,13 +47,13 @@ class User(AbstractUser):
         "auth.Group",
         verbose_name=_("groups"),
         blank=True,
-        related_name="custom_user_set"  # Add this line
+        related_name="custom_user_set",  # Add this line
     )
     user_permissions = models.ManyToManyField(
         "auth.Permission",
         verbose_name=_("user permissions"),
         blank=True,
-        related_name="custom_user_permissions_set"  # Add this line
+        related_name="custom_user_permissions_set",  # Add this line
     )
 
     USERNAME_FIELD = "email"

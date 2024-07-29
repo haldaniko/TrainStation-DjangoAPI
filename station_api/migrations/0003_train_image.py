@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('station_api', '0002_remove_route_distance'),
+        ("station_api", "0002_remove_route_distance"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='train',
-            name='image',
-            field=models.ImageField(null=True, upload_to=station_api.models.image_file_path),
+            model_name="train",
+            name="image",
+            field=models.ImageField(
+                null=True, upload_to=station_api.models.image_file_path
+            ),
         ),
     ]

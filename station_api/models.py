@@ -34,8 +34,12 @@ class Station(models.Model):
 
 
 class Route(models.Model):
-    source = models.ForeignKey(Station, on_delete=models.CASCADE, related_name='route_source')
-    destination = models.ForeignKey(Station, on_delete=models.CASCADE, related_name='route_destination')
+    source = models.ForeignKey(
+        Station, on_delete=models.CASCADE, related_name="route_source"
+    )
+    destination = models.ForeignKey(
+        Station, on_delete=models.CASCADE, related_name="route_destination"
+    )
 
     @property
     def distance(self):
@@ -88,15 +92,13 @@ class Order(models.Model):
 class Ticket(models.Model):
     cargo = models.IntegerField()
     seat = models.IntegerField()
-    journey = models.ForeignKey('Journey', on_delete=models.CASCADE)
-    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    journey = models.ForeignKey("Journey", on_delete=models.CASCADE)
+    order = models.ForeignKey("Order", on_delete=models.CASCADE)
 
     @staticmethod
     def validate_ticket(seat, journey, error_to_raise):
         if Ticket.objects.filter(seat=seat, journey=journey).exists():
-            raise error_to_raise({
-                'seat': f'The seat is alredy taken'
-            })
+            raise error_to_raise({"seat": f"The seat is alredy taken"})
 
     def clean(self):
         Ticket.validate_ticket(

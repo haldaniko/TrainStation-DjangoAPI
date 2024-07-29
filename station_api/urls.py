@@ -8,21 +8,21 @@ from .views import (
     TrainTypeViewSet,
     JourneyViewSet,
     OrderViewSet,
-    TicketViewSet
+    TicketViewSet,
 )
 
 router = DefaultRouter()
-router.register(r'crews', CrewViewSet)
-router.register(r'stations', StationViewSet)
-router.register(r'routes', RouteViewSet)
-router.register(r'train-types', TrainTypeViewSet)
-router.register(r'trains', TrainViewSet)
-router.register(r'journeys', JourneyViewSet)
-router.register(r'orders', OrderViewSet)
-router.register(r'tickets', TicketViewSet)
+router.register(r"crews", CrewViewSet)
+router.register(r"stations", StationViewSet)
+router.register(r"routes", RouteViewSet)
+router.register(r"train-types", TrainTypeViewSet)
+router.register(r"trains", TrainViewSet)
+router.register(r"journeys", JourneyViewSet)
+router.register(r"orders", OrderViewSet)
+router.register(r"tickets", TicketViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]
 
 app_name = "station"

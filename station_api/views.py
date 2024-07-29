@@ -3,16 +3,7 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from .models import (
-    Crew,
-    Station,
-    Route,
-    Train,
-    TrainType,
-    Order,
-    Ticket,
-    Journey
-)
+from .models import Crew, Station, Route, Train, TrainType, Order, Ticket, Journey
 from .permissions import IsAdminOrIfAuthenticatedReadOnly
 from .serializers import (
     CrewSerializer,
@@ -69,7 +60,7 @@ class CrewViewSet(viewsets.ModelViewSet):
                 type=str,
                 description="Filter by Last Name",
                 required=False,
-            )
+            ),
         ]
     )
     def list(self, request, *args, **kwargs):
@@ -84,7 +75,7 @@ class StationViewSet(viewsets.ModelViewSet):
 
 
 class RouteViewSet(viewsets.ModelViewSet):
-    queryset = Route.objects.all().select_related('source', 'destination')
+    queryset = Route.objects.all().select_related("source", "destination")
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
@@ -106,7 +97,7 @@ class TrainTypeViewSet(viewsets.ModelViewSet):
 
 
 class TrainViewSet(viewsets.ModelViewSet):
-    queryset = Train.objects.all().select_related('train_type')
+    queryset = Train.objects.all().select_related("train_type")
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
@@ -121,7 +112,7 @@ class TrainViewSet(viewsets.ModelViewSet):
 
 
 class JourneyViewSet(viewsets.ModelViewSet):
-    queryset = Journey.objects.all().select_related('route', 'train')
+    queryset = Journey.objects.all().select_related("route", "train")
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
@@ -136,15 +127,23 @@ class JourneyViewSet(viewsets.ModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all().select_related('user').prefetch_related('ticket_set')
+    queryset = Order.objects.all().select_related("user").prefetch_related("ticket_set")
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Order.objects.all().select_related('user').prefetch_related('ticket_set')
+            return (
+                Order.objects.all()
+                .select_related("user")
+                .prefetch_related("ticket_set")
+            )
         else:
-            return Order.objects.filter(user=self.request.user).select_related('user').prefetch_related('ticket_set')
+            return (
+                Order.objects.filter(user=self.request.user)
+                .select_related("user")
+                .prefetch_related("ticket_set")
+            )
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -157,15 +156,17 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
 class TicketViewSet(viewsets.ModelViewSet):
-    queryset = Ticket.objects.all().select_related('journey', 'order')
+    queryset = Ticket.objects.all().select_related("journey", "order")
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Ticket.objects.all().select_related('journey', 'order')
+            return Ticket.objects.all().select_related("journey", "order")
         else:
-            return Ticket.objects.filter(order__user=self.request.user).select_related('journey', 'order')
+            return Ticket.objects.filter(order__user=self.request.user).select_related(
+                "journey", "order"
+            )
 
     def get_serializer_class(self):
         if self.action == "list":

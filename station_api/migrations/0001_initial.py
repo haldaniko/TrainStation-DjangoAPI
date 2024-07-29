@@ -9,91 +9,194 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('user', '0001_initial'),
+        ("user", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Crew',
+            name="Crew",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=255)),
-                ('last_name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=255)),
+                ("last_name", models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='Route',
+            name="Route",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('distance', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("distance", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Station',
+            name="Station",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('latitude', models.FloatField()),
-                ('longitude', models.FloatField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("latitude", models.FloatField()),
+                ("longitude", models.FloatField()),
             ],
         ),
         migrations.CreateModel(
-            name='Train',
+            name="Train",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('cargo_num', models.IntegerField()),
-                ('places_in_cargo', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("cargo_num", models.IntegerField()),
+                ("places_in_cargo", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='TrainType',
+            name="TrainType",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField()),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField()),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="user.user"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Journey',
+            name="Journey",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('departure_time', models.DateTimeField()),
-                ('arrival_time', models.DateTimeField()),
-                ('route', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='station_api.route')),
-                ('train', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='station_api.train')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("departure_time", models.DateTimeField()),
+                ("arrival_time", models.DateTimeField()),
+                (
+                    "route",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="station_api.route",
+                    ),
+                ),
+                (
+                    "train",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="station_api.train",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='route',
-            name='destination',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='route_destination', to='station_api.station'),
+            model_name="route",
+            name="destination",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="route_destination",
+                to="station_api.station",
+            ),
         ),
         migrations.AddField(
-            model_name='route',
-            name='source',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='route_source', to='station_api.station'),
+            model_name="route",
+            name="source",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="route_source",
+                to="station_api.station",
+            ),
         ),
         migrations.CreateModel(
-            name='Ticket',
+            name="Ticket",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cargo', models.IntegerField()),
-                ('seat', models.IntegerField()),
-                ('journey', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='station_api.journey')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='station_api.order')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cargo", models.IntegerField()),
+                ("seat", models.IntegerField()),
+                (
+                    "journey",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="station_api.journey",
+                    ),
+                ),
+                (
+                    "order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="station_api.order",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='train',
-            name='train_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='station_api.traintype'),
+            model_name="train",
+            name="train_type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="station_api.traintype"
+            ),
         ),
     ]
