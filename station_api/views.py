@@ -28,6 +28,20 @@ class CrewViewSet(viewsets.ModelViewSet):
     queryset = Crew.objects.all()
     serializer_class = CrewSerializer
 
+    def get_queryset(self):
+        """Retrieve the movies with filters"""
+        first_name = self.request.query_params.get("first_name")
+        last_name = self.request.query_params.get("last_name")
+
+        queryset = self.queryset
+
+        if first_name:
+            queryset = queryset.filter(first_name__icontains=first_name)
+
+        if last_name:
+            queryset = queryset.filter(last_name__icontains=first_name)
+        return queryset.distinct()
+
 
 class StationViewSet(viewsets.ModelViewSet):
     queryset = Station.objects.all()
