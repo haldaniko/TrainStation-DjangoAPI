@@ -82,9 +82,12 @@ class TrainDetailSerializer(serializers.ModelSerializer):
 
 
 class JourneySerializer(serializers.ModelSerializer):
+    departure_time = serializers.DateTimeField()
+    arrival_time = serializers.DateTimeField()
+
     class Meta:
         model = Journey
-        fields = ('id', 'route', 'train', 'departure_time', 'arrival_time')
+        fields = ['id', 'route', 'train', 'departure_time', 'arrival_time']
 
 
 class JourneyListSerializer(serializers.ModelSerializer):
