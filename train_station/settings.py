@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    "drf_spectacular",
     'user',
     'station_api',
 ]
@@ -27,6 +28,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 MIDDLEWARE = [
@@ -117,8 +119,23 @@ SIMPLE_JWT = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Cinema Service API",
-    "DESCRIPTION": "Order tickets for movies",
+    "TITLE": "Train Station API",
+    "DESCRIPTION": """
+        This API provides comprehensive access to manage and interact with the Train Station system. 
+
+        Key Features:
+        - Crew Management: Manage information about train crew members, including their names and roles.
+        - Station Management: Handle details of train stations, including location coordinates.
+        - Route Management: Define routes between stations, including distance calculation.
+        - Train Management: Manage train types and individual trains, including their images and cargo capacities.
+        - Journey Management: Schedule and manage train journeys, specifying departure and arrival times.
+        - Order Management: Track orders placed by users, including associated tickets.
+        - Ticket Management: Manage ticket reservations for specific journeys and orders.
+
+        The API supports standard CRUD operations (Create, Read, Update, Delete) for each entity, along with detailed filters and retrieval options. 
+
+        For further details, explore the API endpoints and their functionalities through the Swagger UI.
+    """,
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "SWAGGER_UI_SETTINGS": {
@@ -128,3 +145,4 @@ SPECTACULAR_SETTINGS = {
         "defaultModelExpandDepth": 2,
     },
 }
+

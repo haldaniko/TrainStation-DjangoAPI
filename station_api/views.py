@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets
 from .models import (
     Crew,
@@ -41,6 +42,26 @@ class CrewViewSet(viewsets.ModelViewSet):
         if last_name:
             queryset = queryset.filter(last_name__icontains=first_name)
         return queryset.distinct()
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "first_name",
+                type=str,
+                description="Filter by First Name",
+                required=False,
+            ),
+            OpenApiParameter(
+                "last_name",
+                type=str,
+                description="Filter by Second Name",
+                required=False,
+
+            )
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class StationViewSet(viewsets.ModelViewSet):
