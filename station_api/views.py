@@ -20,7 +20,7 @@ from .serializers import (
     RouteSerializer,
     RouteListSerializer,
     RouteDetailSerializer, TrainListSerializer, TrainDetailSerializer, JourneyListSerializer, JourneyDetailSerializer,
-    OrderListSerializer, OrderDetailSerializer,
+    OrderListSerializer, OrderDetailSerializer, TicketListSerializer, TicketDetailSerializer,
 )
 
 
@@ -93,4 +93,12 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
-    serializer_class = TicketSerializer
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return TicketListSerializer
+
+        if self.action == "retrieve":
+            return TicketDetailSerializer
+
+        return TicketSerializer

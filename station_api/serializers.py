@@ -120,6 +120,21 @@ class OrderListSerializer(serializers.ModelSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = ('id', 'cargo', 'seat', 'journey', 'order')
+
+
+class TicketListSerializer(serializers.ModelSerializer):
+    journey = serializers.StringRelatedField()
+    order = serializers.StringRelatedField()
+
+    class Meta:
+        model = Ticket
+        fields = ('id', 'cargo', 'seat', 'journey', 'order')
+
+
+class TicketDetailSerializer(serializers.ModelSerializer):
     journey = JourneySerializer()
     order = OrderSerializer()
 
