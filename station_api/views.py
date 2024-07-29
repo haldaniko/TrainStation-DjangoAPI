@@ -20,8 +20,15 @@ from .serializers import (
     JourneySerializer,
     RouteSerializer,
     RouteListSerializer,
-    RouteDetailSerializer, TrainListSerializer, TrainDetailSerializer, JourneyListSerializer, JourneyDetailSerializer,
-    OrderListSerializer, OrderDetailSerializer, TicketListSerializer, TicketDetailSerializer,
+    RouteDetailSerializer,
+    TrainListSerializer,
+    TrainDetailSerializer,
+    JourneyListSerializer,
+    JourneyDetailSerializer,
+    OrderListSerializer,
+    OrderDetailSerializer,
+    TicketListSerializer,
+    TicketDetailSerializer,
 )
 
 
@@ -30,7 +37,7 @@ class CrewViewSet(viewsets.ModelViewSet):
     serializer_class = CrewSerializer
 
     def get_queryset(self):
-        """Retrieve the movies with filters"""
+        """Retrieve the crew with filters"""
         first_name = self.request.query_params.get("first_name")
         last_name = self.request.query_params.get("last_name")
 
@@ -40,7 +47,7 @@ class CrewViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(first_name__icontains=first_name)
 
         if last_name:
-            queryset = queryset.filter(last_name__icontains=first_name)
+            queryset = queryset.filter(last_name__icontains=last_name)
         return queryset.distinct()
 
     @extend_schema(
@@ -54,9 +61,8 @@ class CrewViewSet(viewsets.ModelViewSet):
             OpenApiParameter(
                 "last_name",
                 type=str,
-                description="Filter by Second Name",
+                description="Filter by Last Name",
                 required=False,
-
             )
         ]
     )
@@ -70,7 +76,7 @@ class StationViewSet(viewsets.ModelViewSet):
 
 
 class RouteViewSet(viewsets.ModelViewSet):
-    queryset = Route.objects.all()
+    queryset = Route.objects.all().select_related('source', 'destination')
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -88,7 +94,7 @@ class TrainTypeViewSet(viewsets.ModelViewSet):
 
 
 class TrainViewSet(viewsets.ModelViewSet):
-    queryset = Train.objects.all()
+    queryset = Train.objects.all().select_related('train_type')
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -101,7 +107,7 @@ class TrainViewSet(viewsets.ModelViewSet):
 
 
 class JourneyViewSet(viewsets.ModelViewSet):
-    queryset = Journey.objects.all()
+    queryset = Journey.objects.all().select_related('route', 'train')
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -114,7 +120,7 @@ class JourneyViewSet(viewsets.ModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().select_related('user').prefetch_related('ticket_set')
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -127,7 +133,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
 class TicketViewSet(viewsets.ModelViewSet):
-    queryset = Ticket.objects.all()
+    queryset = Ticket.objects.all().select_related('journey', 'order')
 
     def get_serializer_class(self):
         if self.action == "list":
