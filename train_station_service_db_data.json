@@ -214,7 +214,7 @@
         "pk": 1,
         "fields": {
             "email": "user1@example.com",
-            "password": "password123",
+            "password": "pbkdf2_sha256$720000$CSM91dyNQWMZBGMejrpZI2$6HwK1I3JROqOxdbEX6FVUb04VbXon8kc6smdhAgImlE=",
             "is_staff": false,
             "is_superuser": false
         }
@@ -224,7 +224,7 @@
         "pk": 2,
         "fields": {
             "email": "user2@example.com",
-            "password": "password123",
+            "password": "pbkdf2_sha256$720000$CSM91dyNQWMZBGMejrpZI2$6HwK1I3JROqOxdbEX6FVUb04VbXon8kc6smdhAgImlE=",
             "is_staff": false,
             "is_superuser": false
         }
@@ -234,7 +234,7 @@
         "pk": 3,
         "fields": {
             "email": "user3@example.com",
-            "password": "password123",
+            "password": "pbkdf2_sha256$720000$CSM91dyNQWMZBGMejrpZI2$6HwK1I3JROqOxdbEX6FVUb04VbXon8kc6smdhAgImlE=",
             "is_staff": false,
             "is_superuser": false
         }
